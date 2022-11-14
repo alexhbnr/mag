@@ -120,6 +120,10 @@ process BUSCO {
                     break
                 done
 
+            elif egrep -q \$'INFO:\t\\S+ selected' ${bin}_busco.log && egrep -q \$'INFO:\tNo marker genes were found. Root lineage \\S+ is kept' ${bin}_busco.log ; then
+                echo "Domain could be selected by BUSCO, but no more specific lineage."
+                cp BUSCO/short_summary.specific.\${db_name_spec}.BUSCO.txt short_summary.domain.\${db_name_spec}.${bin}.txt
+
             elif egrep -q \$'INFO:\t\\S+ selected' ${bin}_busco.log && egrep -q \$'INFO:\tNot enough markers were placed on the tree \\([0-9]*\\). Root lineage \\S+ is kept' ${bin}_busco.log ; then
                 echo "Domain could be selected by BUSCO, but no more specific lineage."
                 cp BUSCO/short_summary.specific.\${db_name_spec}.BUSCO.txt short_summary.domain.\${db_name_spec}.${bin}.txt
